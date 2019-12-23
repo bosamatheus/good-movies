@@ -23,7 +23,8 @@ public class UserRatingInfo {
             @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "5"),
             @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "50"),
             @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "5000")
-        })
+        }
+    )
     public UserRating getUserRating(@PathVariable("userId") Integer userId) {
         return webClient.get()
                 .uri("http://ratings-data-service/ratingsdata/users/" + userId)

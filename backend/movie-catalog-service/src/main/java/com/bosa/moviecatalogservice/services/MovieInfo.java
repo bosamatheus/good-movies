@@ -13,14 +13,15 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class MovieInfo {
 
     @Autowired
-    private WebClient webClient; // Recommended by Spring's documentation
+    private WebClient webClient;
 
     @HystrixCommand(fallbackMethod = "getFallbackCatalogItem",
-                    threadPoolKey = "movieInfoPool",
-                    threadPoolProperties = {
-                        @HystrixProperty(name = "coreSize", value = "20"),
-                        @HystrixProperty(name = "maxQueueSize", value = "10")
-                    }
+            commandProperties = {
+                    @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "2000"),
+                    @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "5"),
+                    @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "50"),
+                    @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "5000")
+            }
     )
     public CatalogItem getCatalogItem(Rating rating) {
         Movie movie = webClient.get()

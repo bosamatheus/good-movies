@@ -23,15 +23,6 @@ import java.util.concurrent.TimeUnit;
 @EnableHystrixDashboard
 public class MovieCatalogServiceApplication {
 
-	/*
-	@Bean
-	public RestTemplate getRestTemplate() {
-		HttpComponentsClientHttpRequestFactory clientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory();
-		clientHttpRequestFactory.setConnectTimeout(3000);
-		return new RestTemplate(clientHttpRequestFactory);
-	}
-	*/
-
 	@Bean
 	@LoadBalanced
 	public WebClient getWebClientBuilder() {
